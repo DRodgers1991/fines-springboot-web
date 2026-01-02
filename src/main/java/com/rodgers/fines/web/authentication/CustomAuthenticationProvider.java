@@ -1,5 +1,6 @@
 package com.rodgers.fines.web.authentication;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,13 +20,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
+@Slf4j
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String name = authentication.getName();
-        final String password = authentication.getCredentials().toString();
+        final String password = Objects.requireNonNull(authentication.getCredentials()).toString();
         HttpResponse<String> resp = null;
         try {
             String body = "{\"username\": \""+name+"\",\"password\": \""+password+"\"}";
@@ -37,9 +40,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new RuntimeException(e);
         }
         if(resp == null || resp.statusCode() == HttpStatus.BAD_REQUEST.value()) {
-            System.out.println("FAILLLLLLLLLLLLLLLL");
+            log.info("Invalid Login attempt for user {}",name);
             return  null;
         }
+        log.info("Valid login attempt granting user role for {}",name);
         return authenticateAgainstThirdPartyAndGetAuthentication(name, password);
     }
 
