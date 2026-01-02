@@ -5,7 +5,7 @@ ext {
     lombokVersion = '1.18.42'
     loggingVersion = '2.23.1'
     swaggerVersion = '2.5.0'
-    junitVersion = '5.3.2'
+    junitVersion = '5.14.1'
 
     libs = [
             springBootMvc : "org.springframework.boot:spring-boot-starter-webmvc:${springBootVersion}",
