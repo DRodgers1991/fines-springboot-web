@@ -1,0 +1,27 @@
+plugins {
+	id 'java'
+}
+
+apply from: 'dependencies.gradle'
+
+repositories {
+	mavenCentral()
+}
+
+configurations.configureEach {
+	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+dependencies {
+	implementation springBootDeps
+
+
+	testImplementation libs.springbootTest
+	testImplementation libs.springSecTest
+	testImplementation libs.springBootSecTest
+	testImplementation libs.springBootWebMvcTest
+}
+
+test {
+	useJUnitPlatform()
+}
