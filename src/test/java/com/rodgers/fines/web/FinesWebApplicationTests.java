@@ -1,4 +1,4 @@
-package com.example.securingweb;
+package com.rodgers.fines.web;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SecuringWebApplicationTests {
+public class FinesWebApplicationTests {
 
 	@Autowired
 	private MockMvc mockMvc;

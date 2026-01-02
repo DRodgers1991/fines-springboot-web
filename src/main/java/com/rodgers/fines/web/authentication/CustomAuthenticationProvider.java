@@ -1,6 +1,5 @@
-package com.example.securingweb;
+package com.rodgers.fines.web.authentication;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,13 +1,13 @@
-package com.example.securingweb;
+package com.rodgers.fines.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SecuringWebApplication {
+public class FinesWebApplication {
 
 	public static void main(String[] args) throws Throwable {
-		SpringApplication.run(SecuringWebApplication.class, args);
+		SpringApplication.run(FinesWebApplication.class, args);
 	}
 
 }

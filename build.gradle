@@ -17,6 +17,8 @@ configurations.configureEach {
 }
 
 dependencies {
+	annotationProcessor libs.lombok
+	implementation libs.lombok
 	implementation springBootDeps
 	implementation loggingDeps
 
