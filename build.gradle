@@ -14,7 +14,7 @@ configurations.configureEach {
 
 dependencies {
 	implementation springBootDeps
-
+	implementation loggingDeps
 
 	testImplementation libs.springbootTest
 	testImplementation libs.springSecTest
