@@ -8,6 +8,10 @@ repositories {
 	mavenCentral()
 }
 
+tasks.withType(Test).configureEach {
+	useJUnitPlatform()
+}
+
 configurations.configureEach {
 	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
@@ -16,10 +20,13 @@ dependencies {
 	implementation springBootDeps
 	implementation loggingDeps
 
-	testImplementation libs.springbootTest
+	testImplementation (libs.springbootTest){
+		exclude group: "junit", module: "junit"
+	}
 	testImplementation libs.springSecTest
 	testImplementation libs.springBootSecTest
 	testImplementation libs.springBootWebMvcTest
+	testImplementation libs.junit5
 }
 
 test {

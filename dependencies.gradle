@@ -18,8 +18,6 @@ ext {
             springBootSecTest : "org.springframework.boot:spring-boot-starter-security-test:${springBootVersion}",
             springBootWebMvcTest : "org.springframework.boot:spring-boot-starter-webmvc-test:${springBootVersion}",
 
-
-
             junit5 : "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
             lombok : "org.projectlombok:lombok:${lombokVersion}",
 
