@@ -1,6 +1,6 @@
 package com.rodgers.fines.web.authentication;
 
-import com.rodgers.fines.web.authentication.vo.LoginRequest;
+import com.rodgers.fines.web.common.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
@@ -46,7 +45,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private static HttpResponse<String> getLoginResponse(String name, String password) {
         try {
-            String body = MAPPER.writeValueAsString(new LoginRequest(name, password));
+            String body = MAPPER.writeValueAsString(new User(name, password));
             HttpRequest request = HttpRequest.newBuilder(new URI(VALID_LOGIN)).header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body)).build();
             return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
@@ -64,7 +63,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private static UsernamePasswordAuthenticationToken authenticateAgainstThirdPartyAndGetAuthentication(String name, String password) {
         final List<GrantedAuthority> grantedAuths = new ArrayList<>();
         grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        final UserDetails principal = new User(name, password, grantedAuths);
+        final UserDetails principal = new org.springframework.security.core.userdetails.User(name, password, grantedAuths);
         return new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Fines Application Login</title>
+        <title>Fines Application Sign up</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
@@ -27,17 +27,17 @@
             </div>
         </div>
     </nav>
-    <form th:action="@{/signup}" method="post">
-        <div class="mb-3" th:if="${param.error}">
-            Some issue in your signup, uh oh.
+    <form th:action="@{/signup}" th:object="${signup}" method="post">
+        <div class="mb-3" th:if="${signup.result}">
+            <p th:text="'Result: ' + ${signup.result}" />
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">User Name</label>
-            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+            <input type="text" th:field="*{username}" class="form-control" id="username" name="username" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" th:field="*{password}" class="form-control" id="password" name="password">
         </div>
         <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
