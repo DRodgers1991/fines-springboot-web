@@ -8,7 +8,7 @@
     <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="@{/home}">Catchy Name</a>
+            <a class="navbar-brand" href="#">Catchy Name</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -18,7 +18,7 @@
                         <a class="nav-link" aria-current="page" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/login">Log In</a>
+                        <a class="nav-link " href="/login">Log In</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/signup">Sign Up</a>
@@ -27,12 +27,9 @@
             </div>
         </div>
     </nav>
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/signup}" method="post">
         <div class="mb-3" th:if="${param.error}">
-            Invalid username and password.
-        </div>
-        <div class="mb-3" th:if="${param.logout}">
-            You have been logged out.
+            Some issue in your signup, uh oh.
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">User Name</label>
@@ -42,9 +39,11 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
     </form>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     </body>
 </html>
