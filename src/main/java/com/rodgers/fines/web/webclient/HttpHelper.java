@@ -1,6 +1,7 @@
 package com.rodgers.fines.web.webclient;
 
 import com.rodgers.fines.web.common.vo.User;
+import com.rodgers.fines.web.user.SignUpVo;
 import com.rodgers.fines.web.webclient.response.FinesInternalErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import tools.jackson.databind.ObjectMapper;
@@ -18,13 +19,19 @@ public class HttpHelper {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     // TODO - base URL should be pulled from config
-    public static final String VALID_LOGIN = "http://localhost:8081/users/validLogin";
-
 
     public static HttpResponse<String> getLoginResponse(String name, String password) {
-        try {
             log.info("Got log on request for {}",name);
-            HttpRequest request = getJsonRequest(VALID_LOGIN, MAPPER.writeValueAsString(new User(name, password)));
+            return getResponse(getJsonRequest("http://localhost:8081/users/validLogin", MAPPER.writeValueAsString(new User(name, password))));
+    }
+
+    public static HttpResponse<String> createUser(SignUpVo signup) {
+        log.info("Got user create request for {}",signup.getUsername());
+        return getResponse(getJsonRequest("http://localhost:8081/users/addUser", MAPPER.writeValueAsString(signup)));
+    }
+
+    private static HttpResponse<String> getResponse(HttpRequest request) {
+        try {
             if(request != null) {
                 return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
             }
@@ -32,9 +39,9 @@ public class HttpHelper {
             log.error("Issue with login API {}", connectException.getMessage());
             return new FinesInternalErrorResponse("API Service unavailable");
         } catch (IOException | InterruptedException e) {
-            log.error("Error while calling login service", e);
+            log.error("Error while calling user service", e);
         }
-        return new FinesInternalErrorResponse("Issue in Request/Response to login service");
+        return new FinesInternalErrorResponse("Issue in Request/Response to user service");
     }
 
 
