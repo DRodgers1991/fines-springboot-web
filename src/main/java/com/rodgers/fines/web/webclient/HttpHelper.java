@@ -44,11 +44,9 @@ public class HttpHelper {
         return new FinesInternalErrorResponse("Issue in Request/Response to user service");
     }
 
-
     private static HttpRequest getJsonPostRequest(String uri, String body) {
         try {
-            return HttpRequest.newBuilder(new URI(uri)).header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(body)).build();
+            return getHeader(uri).POST(HttpRequest.BodyPublishers.ofString(body)).build();
         } catch (URISyntaxException uriSyntaxException) {
             log.error("Could not create Http Request", uriSyntaxException);
         }
@@ -57,11 +55,14 @@ public class HttpHelper {
 
     private static HttpRequest getJsonPutRequest(String uri, String body) {
         try {
-            return HttpRequest.newBuilder(new URI(uri)).header("Content-Type", "application/json")
-                    .PUT(HttpRequest.BodyPublishers.ofString(body)).build();
+            return getHeader(uri).PUT(HttpRequest.BodyPublishers.ofString(body)).build();
         } catch (URISyntaxException uriSyntaxException) {
             log.error("Could not create Http Request", uriSyntaxException);
         }
         return null;
+    }
+
+    private static HttpRequest.Builder getHeader(String uri) throws URISyntaxException {
+        return HttpRequest.newBuilder(new URI(uri)).header("Content-Type", "application/json");
     }
 }
