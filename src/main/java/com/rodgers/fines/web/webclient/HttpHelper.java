@@ -22,12 +22,12 @@ public class HttpHelper {
 
     public static HttpResponse<String> getLoginResponse(String name, String password) {
             log.info("Got log on request for {}",name);
-            return getResponse(getJsonRequest("http://localhost:8081/users/validLogin", MAPPER.writeValueAsString(new User(name, password))));
+            return getResponse(getJsonPostRequest("http://localhost:8081/users/validLogin", MAPPER.writeValueAsString(new User(name, password))));
     }
 
     public static HttpResponse<String> createUser(SignUpVo signup) {
-        log.info("Got user create request for {}",signup.getUsername());
-        return getResponse(getJsonRequest("http://localhost:8081/users/addUser", MAPPER.writeValueAsString(signup)));
+        log.info("Got user create request for {}",signup.getUserName());
+        return getResponse(getJsonPutRequest("http://localhost:8081/users/addUser", MAPPER.writeValueAsString(signup)));
     }
 
     private static HttpResponse<String> getResponse(HttpRequest request) {
@@ -45,10 +45,20 @@ public class HttpHelper {
     }
 
 
-    private static HttpRequest getJsonRequest(String uri, String body) {
+    private static HttpRequest getJsonPostRequest(String uri, String body) {
         try {
             return HttpRequest.newBuilder(new URI(uri)).header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body)).build();
+        } catch (URISyntaxException uriSyntaxException) {
+            log.error("Could not create Http Request", uriSyntaxException);
+        }
+        return null;
+    }
+
+    private static HttpRequest getJsonPutRequest(String uri, String body) {
+        try {
+            return HttpRequest.newBuilder(new URI(uri)).header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(body)).build();
         } catch (URISyntaxException uriSyntaxException) {
             log.error("Could not create Http Request", uriSyntaxException);
         }

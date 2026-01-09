@@ -19,6 +19,6 @@ public class SignUpVo extends User {
 
     @Override
     public String toString() {
-        return String.format("username : %s, password : %s, result %s",getUsername(),getPassword(),result);
+        return String.format("username : %s, password : %s, result %s",getUserName(),getPassword(),result);
     }
 }
