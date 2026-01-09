@@ -26,8 +26,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final String name = authentication.getName();
         final String password = Objects.requireNonNull(authentication.getCredentials()).toString();
         HttpResponse<String> resp = HttpHelper.getLoginResponse(name, password);
-        if(resp == null || resp.statusCode() == HttpStatus.BAD_REQUEST.value()) {
-            log.info("Invalid Login attempt for user {}",name);
+        if(resp.statusCode() != HttpStatus.OK.value()) {
+            log.warn("Invalid Login attempt for user {}, error {}:{}",name,resp.statusCode(),resp.body());
             return  null;
         }
         log.info("Valid login attempt granting user role for {}",name);
