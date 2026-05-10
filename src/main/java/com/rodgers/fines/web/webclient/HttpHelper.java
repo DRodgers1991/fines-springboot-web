@@ -26,7 +26,7 @@ public class HttpHelper {
     }
 
     public static HttpResponse<String> createUser(SignUpVo signup) {
-        log.info("Got user create request for {}",signup.getUserName());
+        log.info("Got user create request for {}",signup.getUsername());
         return getResponse(getJsonPutRequest("http://localhost:8081/users/addUser", MAPPER.writeValueAsString(signup)));
     }
 
