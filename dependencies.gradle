@@ -20,6 +20,7 @@ ext {
             springBootWebMvcTest : "org.springframework.boot:spring-boot-starter-webmvc-test:${springBootVersion}",
 
             junit5 : "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
+            junitplatform : "org.junit.platform:junit-platform-launcher:${junitVersion}",
             lombok : "org.projectlombok:lombok:${lombokVersion}",
 
             log4jSlf: "org.apache.logging.log4j:log4j-slf4j2-impl:${loggingVersion}",
