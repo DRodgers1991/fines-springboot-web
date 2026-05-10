@@ -1,5 +1,6 @@
-package com.rodgers.fines.web.user;
+package com.rodgers.fines.web.controllers;
 
+import com.rodgers.fines.web.vo.SignUpVo;
 import com.rodgers.fines.web.webclient.HttpHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

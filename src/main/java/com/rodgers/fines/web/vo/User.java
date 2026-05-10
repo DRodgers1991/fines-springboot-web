@@ -1,4 +1,4 @@
-package com.rodgers.fines.web.common.vo;
+package com.rodgers.fines.web.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

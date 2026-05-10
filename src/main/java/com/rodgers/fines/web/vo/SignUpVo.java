@@ -1,6 +1,5 @@
-package com.rodgers.fines.web.user;
+package com.rodgers.fines.web.vo;
 
-import com.rodgers.fines.web.common.vo.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
