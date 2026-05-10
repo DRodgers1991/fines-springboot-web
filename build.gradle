@@ -29,6 +29,7 @@ dependencies {
 	testImplementation libs.springBootSecTest
 	testImplementation libs.springBootWebMvcTest
 	testImplementation libs.junit5
+	testRuntimeOnly libs.junitplatform
 }
 
 test {
