@@ -1,6 +1,8 @@
 package com.rodgers.fines.web;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +12,11 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.net.http.HttpResponse;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
@@ -27,22 +33,36 @@ public class FinesWebApplicationTests {
 
 	@Test
 	public void loginWithValidUserThenAuthenticated() throws Exception {
-		FormLoginRequestBuilder login = formLogin()
-			.user("user")
-			.password("password");
+		try (MockedStatic<com.rodgers.fines.web.webclient.HttpHelper> mockedHttpHelper = Mockito.mockStatic(com.rodgers.fines.web.webclient.HttpHelper.class)) {
+			HttpResponse<String> mockResponse = Mockito.mock(HttpResponse.class);
+			Mockito.when(mockResponse.statusCode()).thenReturn(200);
+			Mockito.when(mockResponse.body()).thenReturn("success");
+			mockedHttpHelper.when(() -> com.rodgers.fines.web.webclient.HttpHelper.getLoginResponse(eq("user"), eq("password"))).thenReturn(mockResponse);
 
-		mockMvc.perform(login)
-			.andExpect(authenticated().withUsername("user"));
+			FormLoginRequestBuilder login = formLogin()
+				.user("user")
+				.password("password");
+
+			mockMvc.perform(login)
+				.andExpect(authenticated().withUsername("user"));
+		}
 	}
 
 	@Test
 	public void loginWithInvalidUserThenUnauthenticated() throws Exception {
-		FormLoginRequestBuilder login = formLogin()
-			.user("invalid")
-			.password("invalidpassword");
+		try (MockedStatic<com.rodgers.fines.web.webclient.HttpHelper> mockedHttpHelper = Mockito.mockStatic(com.rodgers.fines.web.webclient.HttpHelper.class)) {
+			HttpResponse<String> mockResponse = Mockito.mock(HttpResponse.class);
+			Mockito.when(mockResponse.statusCode()).thenReturn(400);
+			Mockito.when(mockResponse.body()).thenReturn("invalid");
+			mockedHttpHelper.when(() -> com.rodgers.fines.web.webclient.HttpHelper.getLoginResponse(anyString(), anyString())).thenReturn(mockResponse);
 
-		mockMvc.perform(login)
-			.andExpect(unauthenticated());
+			FormLoginRequestBuilder login = formLogin()
+				.user("invalid")
+				.password("invalidpassword");
+
+			mockMvc.perform(login)
+				.andExpect(unauthenticated());
+		}
 	}
 
 	@Test
