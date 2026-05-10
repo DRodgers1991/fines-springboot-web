@@ -1,5 +1,6 @@
-package com.rodgers.fines.web.user;
+package com.rodgers.fines.web.controllers;
 
+import com.rodgers.fines.web.vo.SignUpVo;
 import com.rodgers.fines.web.webclient.HttpHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class SignupController {
     public String signupSubmit(@ModelAttribute SignUpVo signup, Model model) {
         model.addAttribute("signup", signup);
         signup.setPassword(ENCODER.encode(signup.getPassword()));
-        log.info("Got sign up request for username : {}", signup.getUserName());
+        log.info("Got sign up request for username : {}", signup.getUsername());
         HttpResponse<String> response = HttpHelper.createUser(signup);
         log.info("Response from creation service | {}:{}",response.statusCode(),response.body());
         setResult(signup, response);

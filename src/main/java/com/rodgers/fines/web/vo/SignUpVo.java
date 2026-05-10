@@ -1,6 +1,5 @@
-package com.rodgers.fines.web.user;
+package com.rodgers.fines.web.vo;
 
-import com.rodgers.fines.web.common.vo.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,6 +18,6 @@ public class SignUpVo extends User {
 
     @Override
     public String toString() {
-        return String.format("username : %s, password : %s, result %s",getUserName(),getPassword(),result);
+        return String.format("username : %s, password : %s, result %s",getUsername(),getPassword(),result);
     }
 }

@@ -1,7 +1,7 @@
 package com.rodgers.fines.web.webclient;
 
-import com.rodgers.fines.web.common.vo.User;
-import com.rodgers.fines.web.user.SignUpVo;
+import com.rodgers.fines.web.vo.User;
+import com.rodgers.fines.web.vo.SignUpVo;
 import com.rodgers.fines.web.webclient.response.FinesInternalErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import tools.jackson.databind.ObjectMapper;
@@ -26,7 +26,7 @@ public class HttpHelper {
     }
 
     public static HttpResponse<String> createUser(SignUpVo signup) {
-        log.info("Got user create request for {}",signup.getUserName());
+        log.info("Got user create request for {}",signup.getUsername());
         return getResponse(getJsonPutRequest("http://localhost:8081/users/addUser", MAPPER.writeValueAsString(signup)));
     }
 
