@@ -4,7 +4,7 @@ ext {
     springSecVersion = '7.1.0'
     thymeLeafVersion = '3.1.5.RELEASE'
     lombokVersion = '1.18.46'
-    loggingVersion = '2.26.0'
+    loggingVersion = '2.26.1'
     swaggerVersion = '2.5.0'
     junitVersion = '6.1.2'
 
